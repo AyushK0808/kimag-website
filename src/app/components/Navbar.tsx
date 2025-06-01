@@ -17,18 +17,18 @@ interface NavigationLink {
 }
 
 // Custom Triangle-like Hamburger Component with Progressive Lines
-const TriangleHamburger: React.FC<{ isOpen: boolean; onClick: () => void }> = ({ isOpen, onClick }) => {
+const TriangleHamburger: React.FC<{ isOpen: boolean; onClick: () => void; isInSidebar?: boolean }> = ({ isOpen, onClick, isInSidebar = false }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     if (containerRef.current) {
       gsap.to(containerRef.current, {
-        rotation: isOpen ? 180 : 0,
+        rotation: isOpen && isInSidebar ? 180 : 0,
         duration: 0.5,
         ease: "power2.out"
       });
     }
-  }, [isOpen]);
+  }, [isOpen, isInSidebar]);
 
   return (
     <button onClick={onClick} className="p-2">
@@ -216,53 +216,57 @@ const MainNavbar: React.FC = () => {
         {isDrawerOpen && (
           <div
             ref={sidebarRef}
-            className="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50 flex flex-col justify-between p-4"
-            style={{
-              borderImage: 'linear-gradient(to bottom, #2d6389, #348992, #d73c77) 1'
-            }}
+            className="fixed top-0 right-0 w-80 bg-white z-[200] shadow-2xl h-screen"
           >
-            {/* Close Button */}
-            <div className="flex justify-end">
-              <TriangleHamburger isOpen={isDrawerOpen} onClick={toggleDrawer} />
+            {/* Header with Close Button */}
+            <div className="flex justify-end items-center p-6 border-b border-gray-100 pr-8 bg-white">
+              <TriangleHamburger isOpen={isDrawerOpen} onClick={toggleDrawer} isInSidebar={true} />
             </div>
 
             {/* Navigation Links */}
-            <div className="flex flex-col space-y-4 mt-10 px-5">
-              {navigationLinks.map((link, index) => (
-                <a
-                  key={index}
-                  href={link.href}
-                  className="sidebar-link text-gray-700 hover:text-[#2d6389] transition-all font-medium py-2 px-4 rounded-lg transform hover:translate-x-2"
-                  onClick={() => setIsDrawerOpen(false)}
-                >
-                  {link.text}
-                </a>
-              ))}
+            <div className="flex-1 px-6 py-8 bg-white">
+              <div className="space-y-2">
+                {navigationLinks.map((link, index) => (
+                  <a
+                    key={index}
+                    href={link.href}
+                    className="sidebar-link block text-gray-700 hover:text-[#2d6389] hover:bg-gray-50 transition-all font-medium py-3 px-4 rounded-xl transform hover:translate-x-1 border-l-4 border-transparent hover:border-[#2d6389]"
+                    onClick={() => setIsDrawerOpen(false)}
+                  >
+                    {link.text}
+                  </a>
+                ))}
+              </div>
               
-              {/* Resume Button */}
-              <a
-                href="https://drive.google.com/file/d/1krIATOATsOrsDjaJSBzAyvYj_lU_LRv5/view"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="sidebar-link mt-4 w-full text-center bg-gradient-to-r from-[#2d6389] to-[#348992] text-white py-3 rounded-full hover:shadow-lg transition-all font-medium transform hover:scale-105"
-              >
-                Contact Us
-              </a>
-            </div>
-
-            {/* Social Media Links in Sidebar */}
-            <div className="flex space-x-4 mt-5 justify-center">
-              {socialLinks.map((social, index) => (
+              {/* Contact Button */}
+              <div className="mt-8">
                 <a
-                  key={index}
-                  href={social.href}
+                  href="https://drive.google.com/file/d/1krIATOATsOrsDjaJSBzAyvYj_lU_LRv5/view"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`text-gray-700 ${social.hoverColor} transition-all transform hover:scale-110`}
+                  className="sidebar-link block w-full text-center bg-gradient-to-r from-[#2d6389] to-[#348992] text-white py-4 px-6 rounded-xl hover:shadow-xl transition-all font-semibold transform hover:scale-105 hover:shadow-[#2d6389]/25"
                 >
-                  {social.icon}
+                  Contact Us
                 </a>
-              ))}
+              </div>
+            </div>
+
+            {/* Footer with Social Links */}
+            <div className="px-6 py-6 border-t border-gray-100 bg-white">
+              <p className="text-sm text-gray-500 mb-4 text-center">Connect with us</p>
+              <div className="flex space-x-6 justify-center">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-gray-600 ${social.hoverColor} transition-all transform hover:scale-125 p-2 rounded-full hover:bg-gray-50`}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         )}
@@ -275,7 +279,7 @@ const MainNavbar: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-opacity-30 z-40"
+            className="fixed inset-0 bg-opacity-50 z-[90]"
             onClick={toggleDrawer}
           />
         )}
