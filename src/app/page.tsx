@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Navbar from "./components/Navbar";
 import { OurServices } from "./components/Services";
 import { projects } from "./components/text/Services";

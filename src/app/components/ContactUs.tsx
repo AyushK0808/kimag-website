@@ -41,7 +41,7 @@ const ContactUs: React.FC = () => {
             Contact Us
           </h1>
           <p className="text-xl md:text-2xl text-[#2d6389]/90 font-light">
-            Let's Start a Conversation That Matters
+            Let&apos;s Start a Conversation That Matters
           </p>
         </div>
 
@@ -170,7 +170,7 @@ const ContactUs: React.FC = () => {
               </div>
               <div className="text-white leading-relaxed mb-6">
                 <p className="text-lg font-medium mb-4">
-                  Ready to transform your brand's story?
+                  Ready to transform your brand&apos;s story?
                 </p>
                 <p className="text-sm opacity-90">
                   Schedule a consultation with our expert team and discover how we can elevate your communication strategy.
