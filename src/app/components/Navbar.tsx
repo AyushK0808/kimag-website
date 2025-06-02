@@ -219,7 +219,7 @@ const MainNavbar: React.FC = () => {
             className="fixed top-0 right-0 w-80 bg-white z-[200] shadow-2xl h-screen"
           >
             {/* Header with Close Button */}
-            <div className="flex justify-end items-center p-6 border-b border-gray-100 pr-8 bg-white">
+            <div className="flex justify-end items-center p-6 border-b border-gray-100 pr-8 bg-white h-17 md:h-21">
               <TriangleHamburger isOpen={isDrawerOpen} onClick={toggleDrawer} isInSidebar={true} />
             </div>
 
