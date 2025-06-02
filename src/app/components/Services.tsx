@@ -10,7 +10,7 @@ export const OurServices = ({
 }: {
   items: {
     title: string;
-    description: string;
+    description: string[];
     link: string;
   }[];
   className?: string;
