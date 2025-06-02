@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { OurServices } from "./components/Services";
 import { projects } from "./components/text/Services";
 import AboutUs from "./components/AboutUs";
+import CaseStudies from "./components/CaseStudies";
 
 
 
@@ -12,6 +13,7 @@ export default function Home() {
       <Navbar/>
       <AboutUs/>
       <OurServices items={projects}/>
+      <CaseStudies/>
 
     </div>
   );
